@@ -3,6 +3,16 @@ var graphApp = angular.module('graphApp', ['googlechart']);
 graphApp.controller('mainController', ['$scope', function($scope){
 
 	$scope.name = 'alex';
+  $scope.toggless = true;
+
+  $scope.changeTog = function function_name() {
+    if ($scope.toggless == true) {
+      $scope.toggless = false;
+    } else{
+      $scope.toggless = true;
+    }
+
+  };
 
 
 var chart1 = {};
@@ -60,6 +70,7 @@ var chart1 = {};
 
     $scope.changeARow = $scope.chart.data.rows[0].c[1].v;
 
+
  
 
     $scope.chartTypeList = 
@@ -67,8 +78,9 @@ var chart1 = {};
      "name" : "Charts",
      "value" : $scope.chart.type,
      "values" : ['AreaChart','PieChart', 'ColumnChart', 'LineChart', 'Table', 'BarChart']
-
   };
+
+
 
 
 
