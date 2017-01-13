@@ -1,4 +1,4 @@
-var graphApp = angular.module('graphApp', ['googlechart']);
+var graphApp = angular.module('graphApp', ['googlechart', 'ui.bootstrap']);
 
 graphApp.controller('mainController', ['$scope', function($scope){
 
@@ -18,6 +18,7 @@ graphApp.controller('mainController', ['$scope', function($scope){
 var chart1 = {};
     chart1.type = "ColumnChart";
     chart1.cssStyle = "height:200px; width:300px;";
+
     chart1.data = {"cols": [
         {id: "month", label: "Month", type: "string"},
         {id: "laptop-id", label: "Laptop", type: "number"},
@@ -31,6 +32,7 @@ var chart1 = {};
             {v: 12, f: "Ony 12 items"},
             {v: 7, f: "7 servers"},
             {v: 4}
+
         ]},
         {c: [
             {v: "February"},
@@ -81,7 +83,14 @@ var chart1 = {};
   };
 
 
+ $scope.tabs = [
+    { title:'Dynamic Title 1', content:'Dynamic content 1' },
+    { title:'JSON', content: $scope.chart.data, disabled: false }
+  ];
 
+   $scope.model = {
+    name: 'Tabs'
+  };
 
 
 }]);
