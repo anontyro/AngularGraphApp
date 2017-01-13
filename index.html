@@ -45,6 +45,14 @@
 	<select ng-model="chartTypeList.value" ng-options="v for v in chartTypeList.values" ng-change="chart.type = chartTypeList.value">
 	</select>
 	<p>
+	<h2>column: {{chart.data.cols[0].label}}</h2><br>
+	<select ng-model="chart.data.cols[0].label" ng-options=" data as chart.data.cols[$index].label for data in chart.data.cols">
+		
+	</select>
+
+</div>
+
+<div>
 
   <uib-tabset active="active">
     <uib-tab index="0" heading="Graph controls" scope="" onload="">
@@ -60,8 +68,8 @@
 
 	<!-- {{chart|json}} -->
 
-
 </div>
+
 
 
 

@@ -82,7 +82,7 @@ var chart1 = {};
      "values" : ['AreaChart','PieChart', 'ColumnChart', 'LineChart', 'Table', 'BarChart']
   };
 
-
+// tab controls for the dynamic tabs
  $scope.tabs = [
     { title:'Dynamic Title 1', content:'Dynamic content 1' },
     { title:'JSON', content: $scope.chart.data, disabled: false }
