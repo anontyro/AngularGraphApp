@@ -45,10 +45,8 @@
 	<select ng-model="chartTypeList.value" ng-options="v for v in chartTypeList.values" ng-change="chart.type = chartTypeList.value">
 	</select>
 	<p>
-	<h2>column: {{chart.data.cols[0].label}}</h2><br>
-	<select ng-model="chart.data.cols[0].label" ng-options=" data as chart.data.cols[$index].label for data in chart.data.cols">
-		
-	</select>
+	<h2>column: {{chartCols}}</h2><br>
+	
 
 </div>
 
@@ -59,6 +57,13 @@
 
 	<label>Chart Row</label>
 	<input type="text" ng-model="changeARow" ng-change="chart.data.rows[0].c[1].v = changeARow" name=""/>
+	<br>
+
+	<div>
+		<label>Column ({{chartColumnList.values[0]}})</label>
+		<select ng-model="chartColumnList.value" ng-options="o for o in chartColumnList.values.slice(1)">
+		</select>
+	</div>
 
     </uib-tab>
     <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">

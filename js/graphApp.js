@@ -2,7 +2,7 @@ var graphApp = angular.module('graphApp', ['googlechart', 'ui.bootstrap']);
 
 graphApp.controller('mainController', ['$scope', function($scope){
 
-	$scope.name = 'alex';
+//Title variables that are used to check if the Title is currently editable
   $scope.toggless = true;
 
   $scope.changeTog = function function_name() {
@@ -72,9 +72,23 @@ var chart1 = {};
 
     $scope.changeARow = $scope.chart.data.rows[0].c[1].v;
 
+    //pull out the labels of the columns from the JSON
+    $scope.chartCols = [];
 
- 
+    angular.forEach($scope.chart.data.cols, function(value, key){
+        $scope.chartCols.push(value.label);
+    });
 
+    $scope.chartColumnList ={
+        "type" : "select",
+        "name" : "Columns",
+        "value" : $scope.chartCols[1],
+        "values" : $scope.chartCols,
+    };
+
+
+
+//JSON Object that displays all the chart types for select box
     $scope.chartTypeList = 
     {"type" : "select",
      "name" : "Charts",
