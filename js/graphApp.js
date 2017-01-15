@@ -5,7 +5,7 @@ graphApp.controller('mainController', ['$scope', function($scope){
 //Title variables that are used to check if the Title is currently editable
   $scope.toggless = true;
 
-  $scope.changeTog = function function_name() {
+  $scope.changeTog = function() {
     if ($scope.toggless == true) {
       $scope.toggless = false;
     } else{
@@ -72,7 +72,7 @@ var chart1 = {};
 
     $scope.changeARow = $scope.chart.data.rows[0].c[1].v;
 
-    //pull out the labels of the columns from the JSON
+ //pull out the labels of the columns from the JSON
     $scope.chartCols = [];
 
     angular.forEach($scope.chart.data.cols, function(value, key){
@@ -85,6 +85,26 @@ var chart1 = {};
         "value" : $scope.chartCols[1],
         "values" : $scope.chartCols,
     };
+
+
+//
+    $scope.getRowsFor = function (index) {
+        
+        $scope.currentRow =[];
+
+        for (var i = 0; i < $scope.chart.data.rows.length; i++) {
+            
+        $scope.currentRow.push({"name" : $scope.chart.data.rows[i].c[0].v},
+                {"value" : $scope.chart.data.rows[i].c[index].v });
+        }
+
+        return $scope.currentRow;
+            
+        };
+
+
+
+    
 
 
 
@@ -105,6 +125,8 @@ var chart1 = {};
    $scope.model = {
     name: 'Tabs'
   };
+
+//
 
 
 }]);
