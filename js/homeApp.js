@@ -43,6 +43,8 @@ homeApp.controller('mainController', ['$scope', '$http', function($scope, $http)
 
 	//get column values
 
+	$scope.showColumnHeadList = false;
+
 	$scope.columnHeaderList = [];
 
 	$scope.getColumnHeaders = function($table){

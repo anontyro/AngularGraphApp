@@ -4,7 +4,7 @@ if(!isset($_GET['table'])){
 	die("Error no table value given");
 }
 
-	$graphQuery = "select ".$_GET['column1'].", ".$_GET['column2']." from ".$_GET['table'].";";
+	$graphQuery = "select month , totalsales from ".$_GET['table'].";";
 	runGraph($graphQuery);
 
 

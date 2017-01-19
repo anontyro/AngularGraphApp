@@ -32,14 +32,37 @@
  ng-options="v for v in tableSelectionList.values" 
   ng-disabled="isTableSelectDisabled"
   ng-change="queryBuilder = queryBuilder +'table='+ tableSelectionList.value; isTableSelectDisabled = true; userSelectTable = tableSelectionList.value; 
-  queryDatabase(queryBuilder); buildChart(); chartButtonVisable = true; 
+  buildChart(); chartButtonVisable = true; 
   chart.options.title = tableSelectionList.value; 
-  getColumnHeaders(tableSelectionList.value);"
+  
+  showColumnHeadList = true;"
  >
 </select>
 <br>
+
+<label>Column1</label>
+<select 
+ ng-show="showColumnHeadList"
+ ng-model="columnHeaderSelect.value" 
+ ng-options="v for v in columnHeaderList"
+ ng-focus="getColumnHeaders(tableSelectionList.value)"
+ ng-change="queryBuilder = queryBuilder + '&' + 'column1='+ columnHeaderSelect.value;" 
+>	
+<option value="" disabled selected>All Categories</option>
+</select>
+<br>
+<label>Column2</label>
+<select 
+ ng-show="showColumnHeadList"
+ ng-model="columnHeaderSelect.value" 
+ ng-options="v for v in columnHeaderList"
+ ng-change="queryBuilder = queryBuilder + '&' + 'column2='+ columnHeaderSelect.value; queryDatabase(queryBuilder)"
+
+>	
+</select>
+<!-- TODO: Make JSON array from header and data type to prevent the wrong type being selected and inform user if it is/ hide them-->
+<br>
 {{columnHeaderList}}
-<!-- TODO: Return column list to allow selection of two ------------------>
 
 <br>
 <button ng-click="chart.data = returnedData; isChartReady = true; chartButtonVisable = false;" ng-show="chartButtonVisable">Show Graph</button>
@@ -54,8 +77,8 @@
 
 <br>
 <br>
-<a ui-sref="hello" ui.sref-active="active">hello</a>
-<a ui-sref="about" ui.sref-active="active">about</a>
+<!-- <a ui-sref="hello" ui.sref-active="active">hello</a>
+<a ui-sref="about" ui.sref-active="active">about</a> -->
 
 
 
