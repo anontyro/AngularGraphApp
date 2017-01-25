@@ -1,0 +1,86 @@
+
+
+<!DOCTYPE html>
+<html ng-app="graphApp" ng-cloak>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.6.1/angular.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
+<script type="text/javascript" src="js/ui-bootstrap-min.js"></script>
+<script src="js/googleChart/ng-google-chart.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="js/graphApp.js" ></script>
+
+
+
+	<title>new pages</title>
+</head>
+
+
+<body ng-controller="mainController">
+
+<div  style="padding-left: 50px;">
+	<!-- Title header editable -->
+	<div>
+		<div ng-show="toggless" ng-click="changeTog()"><h1>{{chartTitle}}</h1></div>
+		<div ng-hide="toggless" ng-keypress="$event.keyCode == 13 && changeTog()" ng-focus="changeTog()">
+		<h1><input type="text" ng-model="chartTitle" ng-change="chart.options.title = chartTitle " name=""/></h1>
+		</div>
+	</div>
+	<!-- Title Ends here -->
+
+	<!-- Google Chart Display starts here -->
+
+	<div google-chart chart="chart" style="{{chart.style}}"></div>
+	<p>
+
+	<!-- Google chart Display Ends here -->
+
+	<!-- Chart editable boxes -->
+
+	<p>
+
+	<label>Chart Type</label>
+	<select ng-model="chartTypeList.value" ng-options="v for v in chartTypeList.values" ng-change="chart.type = chartTypeList.value">
+	</select>
+	<p>
+	<h2>column: {{getRowsFor(1)}}</h2><br>
+	
+
+</div>
+
+<div>
+
+  <uib-tabset active="active">
+    <uib-tab index="0" heading="Graph controls" scope="" onload="">
+
+	<label>Chart Row</label>
+	<input type="text" ng-model="changeARow" ng-change="chart.data.rows[0].c[1].v = changeARow" name=""/>
+	<br>
+
+	<div>
+		<label>Column ({{chartColumnList.values[0]}})</label>
+		<select ng-model="chartColumnList.value" ng-options="o for o in chartColumnList.values.slice(1) track by $index" ng-change="">
+		</select>
+		<input type="text" name="" />
+	</div>
+
+    </uib-tab>
+    <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
+      {{tab.content}}
+    </uib-tab>
+  </uib-tabset>
+
+	<!-- {{chart|json}} -->
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
