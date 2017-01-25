@@ -1,5 +1,43 @@
 <div>
-<h1>Main Page</h1>
+	<h2>Query Builder: {{queryBuilder}}</h2>
+	<br>
+</div>
+
+<div>
+	<label>Select Table</label>
+	<select
+	ng-model="tableSelectionList.value" 
+	ng-options="v for v in tableSelectionList.values" 
+	ng-change="selectTable(tableSelectionList.value)"
+	>
+		
+	</select>
+
+	<br>
+	<label>First Column</label>
+	<select
+	ng-model="columnHeaderSelect.value" 
+ 	ng-options="v for v in columnHeaderList"
+	ng-focus="getColumnHeaders(tableSelectionList.value)"
+	ng-change="columnBuilder(columnHeaderSelect.value, 1)"
+	>
+		
+	</select>
+
+	<br>
+	<label>Next Column</label>
+	<select
+	ng-model="columnHeaderSelect.value" 
+ 	ng-options="v for v in columnHeaderList"
+	ng-focus="getColumnHeaders(tableSelectionList.value)"
+	ng-change="columnBuilder(columnHeaderSelect.value, 2);
+		queryDatabase(queryBuilder)
+	"
+
+	>
+		
+	</select>
 <br>
-{{graphData}}
+	{{graphData}}
+
 </div>
