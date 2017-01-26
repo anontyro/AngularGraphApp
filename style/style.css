@@ -1,0 +1,22 @@
+html body{
+	width: 100%;
+	height: 100%;
+}
+#mainView{
+	width: 100%;
+	height: 70%;
+	position: relative;
+}
+#topSpacer{
+	width: 100%;
+	height: 100px;
+}
+.panel .panel-main{
+	width: 50%;
+	margin:auto;
+}
+#firstButtonContainer{
+	margin: auto;
+	text-align: center;
+
+}

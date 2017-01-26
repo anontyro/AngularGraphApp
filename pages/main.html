@@ -1,43 +1,82 @@
-<div>
-	<h2>Query Builder: {{queryBuilder}}</h2>
-	<br>
+
+
+<div id="topSpacer"></div>
+<div class="panel panel-primary" style="width: 50%; margin: auto;">
+	<div class="panel-heading">Graph Builder</div>
+	<div class="panel-body" style="text-align: center;">
+		<div class="container-fluid" ng-show="firstSelectorShow" id="firstButtonContainer">
+
+				<button uib-popover="Select a pre-defined graph" popover-trigger="'mouseenter'" class="btn btn-default" ng-click="predefinedGraphShow = true; firstSelectorShow = false;">Graph</button> 
+				<button uib-popover="Create a graph from a table" popover-trigger="'mouseenter'" class="btn btn-default" ng-click="customGraphShow = true; customGraphTableShow = true; firstSelectorShow = false; mainFooterShow = true;">Custom Graph</button>
+
+		</div>
+
+		<div id="predefined-graph" ng-show="predefinedGraphShow" id="firstButtonContainer" class="form-group form-inline">
+			<label>Select Table</label>
+			<select class="form-control"
+			ng-model="predefinedTableSelectionList.value" 
+			ng-options="v for v in predefinedTableSelectionList.values" 
+			ng-change="selectTable(predefinedTableSelectionList.value);
+			 queryDatabase(queryBuilder)"
+			>
+				
+			</select>
+		</div>
+
+		<div id="custom-graph" ng-show="customGraphShow" id="firstButtonContainer" > 
+
+			<div ng-show="customGraphTableShow" class="form-group form-inline">
+				<label>Select Table</label>
+				<select class="form-control"
+				ng-model="tableSelectionList.value" 
+				ng-options="v for v in tableSelectionList.values" 
+				ng-change="selectTable(tableSelectionList.value); customGraphTableShow = false; customerGraphColumnOneShow = true;  "
+				>
+					
+				</select>
+			</div>
+		<br>
+
+			<div ng-show="customerGraphColumnOneShow" class="form-group form-inline">
+				<label>First Column</label>
+				<select class="form-control"
+				ng-model="columnHeaderSelect.value" 
+			 	ng-options="v for v in columnHeaderList"
+				ng-focus="getColumnHeaders(tableSelectionList.value)"
+				ng-change="columnBuilder(columnHeaderSelect.value, 1); customerGraphColumnOneShow = false; customerGraphColumnTwoShow = true;"
+				>
+					
+				</select>
+			</div>
+
+		<br>
+
+			<div ng-show="customerGraphColumnTwoShow" class="form-group form-inline">
+
+				<label>Next Column</label>
+				<select class="form-control"
+				ng-model="columnHeaderSelect.value" 
+			 	ng-options="v for v in columnHeaderList"
+				ng-focus="getColumnHeaders(tableSelectionList.value)"
+				ng-change="columnBuilder(columnHeaderSelect.value, 2);
+					queryDatabase(queryBuilder)
+				"
+
+				>
+					
+				</select>
+			</div>
+<br>
+
 </div>
 
-<div>
-	<label>Select Table</label>
-	<select
-	ng-model="tableSelectionList.value" 
-	ng-options="v for v in tableSelectionList.values" 
-	ng-change="selectTable(tableSelectionList.value)"
-	>
-		
-	</select>
 
-	<br>
-	<label>First Column</label>
-	<select
-	ng-model="columnHeaderSelect.value" 
- 	ng-options="v for v in columnHeaderList"
-	ng-focus="getColumnHeaders(tableSelectionList.value)"
-	ng-change="columnBuilder(columnHeaderSelect.value, 1)"
-	>
-		
-	</select>
 
-	<br>
-	<label>Next Column</label>
-	<select
-	ng-model="columnHeaderSelect.value" 
- 	ng-options="v for v in columnHeaderList"
-	ng-focus="getColumnHeaders(tableSelectionList.value)"
-	ng-change="columnBuilder(columnHeaderSelect.value, 2);
-		queryDatabase(queryBuilder)
-	"
+</div>
 
-	>
-		
-	</select>
-<br>
-	{{graphData}}
+<div class="panel-footer" ng-show="mainFooterShow">
+	Query Builder: {{queryBuilder}}
+</div>
+<!-- 	{{graphData}} -->
 
 </div>

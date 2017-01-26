@@ -1,10 +1,72 @@
 <h1>Graph page!!</h1>
-stuff
 <br>
-<h1>JSON:</h1>{{graphData}}
-<br>
-<div google-chart chart="chart" style="padding-left:50px; height: 500px;">
+<div class="container-fluid">
+
+	<div class="row">
+
+		<div google-chart chart="chart" id="printableArea" style="padding-left:50px;" class="col-md-9">
+			
+		</div>
+		<br>
+		
+
+		<br>
+
+		<div class="col-md-3">
+			<div class="panel panel-primary ">
+				<div class="panel-heading">Graph Controls</div>
+				<div class="panel-body">
+
+					<div class="form-group form-inline">
+						<label>Title </label>
+						<input class="form-control" type="text" name="graph-title" ng-model="chart.options.title">
+					</div>
+					<br>
+					<div class="form-group form-inline">
+						<label>Chart Type</label>
+						<select class="form-control"
+						ng-model="graphTypeSelectionList.value" 
+						ng-options="v for v in graphTypeSelectionList.values" 
+						ng-change="graphTypeSelection = graphTypeSelectionList.value;"
+						>
+							
+						</select>
+					</div>
+
+					<br><br>
+					<div class="form-group form-inline">
+						<label>X-Size</label>
+						<input type="range" min=100 max=1500 value={{xSize}} name="x-size-selector"
+						ng-model="xSize" 
+						>
+					</div>
+					<br>
+
+					<div class="form-group form-inline">
+						<label>Y-Size</label>
+						<input type="range" min=100 max=1000 value={{ySize}} name="y-size-selector" ng-model="ySize">
+					</div>
+
+				</div>
+				<div class="panel-footer">
+					<button ng-click="backToMain()" class="btn btn-default">Back
+					</button>
+					<button ng-click="changeJsonShowExport()" class="btn btn-default">Export
+					</button>
+					<button ng-click="printDiv();" class="btn btn-default">Print</button>
+				</div>
+				
+			</div>
+		</div>
+
+	</div><!--Row close -->
+
 	
+</div><!--Container fluid close -->
+<div ng-show="showJsonExport">
+<div class="panel panel-primary ">
+	<div class="panel-heading">JSON Export</div>
+	<div class="panel-body">
+		{{chart}}
+	</div>
 </div>
-<br>
-<button ng-click="backToMain()">Back</button>

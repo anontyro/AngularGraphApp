@@ -3,10 +3,14 @@
 if(!isset($_GET['table'])){
 	die("Error no table value given");
 }
-
-	$graphQuery = "select ".$_GET['column1'].", ".$_GET['column2']." from ".$_GET['table'].";";
+if($_GET['table'] === 'forecast'){
+	$graphQuery = 'SELECT a.locationname, b.forecasttotal FROM tradexc_locations a, tradexc_forecasts b WHERE a.locationidnum = b.locationidnum;';
 	runGraph($graphQuery);
 
+}else{
+	$graphQuery = "select ".$_GET['column1'].", ".$_GET['column2']." from ".$_GET['table'].";";
+	runGraph($graphQuery);
+}
 
 
 function runGraph($graphQuery){
