@@ -1,5 +1,5 @@
-<h1>Graph page!!</h1>
-<br>
+
+
 <div class="container-fluid">
 
 	<div class="row">
@@ -12,39 +12,60 @@
 
 		<br>
 
-		<div class="col-md-3">
+		<div class="col-md-3 chart-controls">
 			<div class="panel panel-primary ">
 				<div class="panel-heading">Graph Controls</div>
-				<div class="panel-body">
+				<div class="panel-body form-horizontal">
 
-					<div class="form-group form-inline">
-						<label>Title </label>
-						<input class="form-control" type="text" name="graph-title" ng-model="chart.options.title">
-					</div>
-					<br>
-					<div class="form-group form-inline">
-						<label>Chart Type</label>
-						<select class="form-control"
-						ng-model="graphTypeSelectionList.value" 
-						ng-options="v for v in graphTypeSelectionList.values" 
-						ng-change="graphTypeSelection = graphTypeSelectionList.value;"
-						>
-							
-						</select>
+					<div class="form-group ">
+						<label class="col-sm-2 control-label">Title </label>
+						<div class="col-sm-10">
+							<input class="form-control col-sm-9" type="text" name="graph-title" ng-model="chart.options.title">
+						</div>
 					</div>
 
-					<br><br>
-					<div class="form-group form-inline">
+					<div class="form-group ">
+						<label class="col-sm-2 control-label">X-Axis </label>
+						<div class="col-sm-10">
+							<input class="form-control col-sm-9" type="text" name="graph-x-axis" ng-model="chart.options.vAxis.title">
+						</div>
+					</div>
+
+					<div class="form-group ">
+						<label class="col-sm-2 control-label">Y-Axis </label>
+						<div class="col-sm-10">
+							<input class="form-control col-sm-9" type="text" name="graph-y-axis" ng-model="chart.options.hAxis.title">
+						</div>
+					</div>
+
+					<div class="form-group ">
+						<label class="col-sm-2 control-label">Chart Type</label>
+						<div class="col-sm-10">
+							<select class="form-control input-sm "
+							ng-model="graphTypeSelectionList.value" 
+							ng-options="v for v in graphTypeSelectionList.values" 
+							ng-change="graphTypeSelection = graphTypeSelectionList.value;"
+							>
+								
+							</select>
+						</div>
+					</div>
+
+					<div >
 						<label>X-Size</label>
-						<input type="range" min=100 max=1500 value={{xSize}} name="x-size-selector"
+						<input type="range" min=100 max=2500 value={{xSize}} name="x-size-selector"
 						ng-model="xSize" 
 						>
 					</div>
 					<br>
 
-					<div class="form-group form-inline">
+					<div >
 						<label>Y-Size</label>
-						<input type="range" min=100 max=1000 value={{ySize}} name="y-size-selector" ng-model="ySize">
+						<input type="range" min=100 max=3000 value={{ySize}} name="y-size-selector" ng-model="ySize">
+					</div>
+
+					<div class="checkbox">
+						<label> <input type="checkbox" name="legend" checked ng-model="showLegend" ng-true-value="'true'" ng-false-value="'false'" > Legend</label>
 					</div>
 
 				</div>
@@ -57,7 +78,7 @@
 				</div>
 				
 			</div>
-		</div>
+		</div> <!-- Chart controls finish -->
 
 	</div><!--Row close -->
 
@@ -70,3 +91,4 @@
 		{{chart}}
 	</div>
 </div>
+

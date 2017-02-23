@@ -4,79 +4,94 @@
 <div class="panel panel-primary" style="width: 50%; margin: auto;">
 	<div class="panel-heading">Graph Builder</div>
 	<div class="panel-body" style="text-align: center;">
-		<div class="container-fluid" ng-show="firstSelectorShow" id="firstButtonContainer">
 
-				<button uib-popover="Select a pre-defined graph" popover-trigger="'mouseenter'" class="btn btn-default" ng-click="predefinedGraphShow = true; firstSelectorShow = false;">Graph</button> 
-				<button uib-popover="Create a graph from a table" popover-trigger="'mouseenter'" class="btn btn-default" ng-click="customGraphShow = true; customGraphTableShow = true; firstSelectorShow = false; mainFooterShow = true;">Custom Graph</button>
-
-		</div>
-
-		<div id="predefined-graph" ng-show="predefinedGraphShow" id="firstButtonContainer" class="form-group form-inline">
+		<div id="first-selector" ng-show="firstSelectorShow" class="form-group form-inline">
 			<label>Select Table</label>
 			<select class="form-control"
 			ng-model="predefinedTableSelectionList.value" 
-			ng-options="v for v in predefinedTableSelectionList.values" 
-			ng-change="selectTable(predefinedTableSelectionList.value);
-			 queryDatabase(queryBuilder)"
+			ng-options="v.tableTitle for v in predefinedTableSelectionList.values" 
+			ng-change="selectTable(predefinedTableSelectionList.value.tableCode);
+			 "
 			>
-				
+	
 			</select>
 		</div>
+		<!-- Add filters for the selected chart will need:
+			- Month limiter (upto X) will tie into SQL limits to display
+			- Brand selection, pull from database or all together
+			
+		 -->
+		 <!-- Select of brands pulled via PHP -->
+		 <div id="brand-selector" class="form-group form-inline">
+		 	<label>Brands</label>
+		 	<select
+		 	class = "form-control"
+		 	ng-model="brandList.value" 
+			ng-options="v.brandname for v in brandList" 
+			ng-change="selectBrand(brandList.value.brandidnum);"
+		 	> 		
+		 	</select>
+		
+		 </div> <!-- End of brand -->
 
-		<div id="custom-graph" ng-show="customGraphShow" id="firstButtonContainer" > 
+		  <!-- Select of Items pulled via PHP -->
+		 <div id="item-selector" class="form-group form-inline">
+		 	<label>Item</label>
+		 	<select
+		 	class = "form-control"
+		 	ng-model="itemList.value" 
+			ng-options="v.itemname for v in itemList" 
+			ng-change="selectItem(itemList.value.itemidnum);"
+		 	> 		
+		 	</select>
+		
+		 </div> <!-- End of brand -->
 
-			<div ng-show="customGraphTableShow" class="form-group form-inline">
-				<label>Select Table</label>
-				<select class="form-control"
-				ng-model="tableSelectionList.value" 
-				ng-options="v for v in tableSelectionList.values" 
-				ng-change="selectTable(tableSelectionList.value); customGraphTableShow = false; customerGraphColumnOneShow = true;  "
-				>
-					
-				</select>
-			</div>
-		<br>
+		 <!-- Select for location via PHP -->
+		 <div id="location-selector" class="form-group form-inline">
+		 	<label>Location</label>
+		 	<select
+		 	class="form-control"
+		 	ng-model="locationList.value"
+		 	ng-options="v.locationname for v in locationList"
+		 	ng-change = "
+		 		selectLocation(locationList.value.locationidnum);
 
-			<div ng-show="customerGraphColumnOneShow" class="form-group form-inline">
-				<label>First Column</label>
-				<select class="form-control"
-				ng-model="columnHeaderSelect.value" 
-			 	ng-options="v for v in columnHeaderList"
-				ng-focus="getColumnHeaders(tableSelectionList.value)"
-				ng-change="columnBuilder(columnHeaderSelect.value, 1); customerGraphColumnOneShow = false; customerGraphColumnTwoShow = true;"
-				>
-					
-				</select>
-			</div>
+		 	"
+		 	>
+		 		
+		 	</select>
+		 </div> <!-- End of Location -->
 
-		<br>
+		 <div id="timeframe" class="form-group form-inline">
+		 	<label>From January - </label>
+		 	<select
+		 	class="form-control"
+		 	ng-model="timeframeSelection.value"
+		 	ng-options="v.month for v in timeframeSelection"
+		 	ng-change="
+		 		selectTimeframe(timeframeSelection.value.monthid);
+		 		queryDatabase(queryBuilder);
+		 	"
+		 	/>
+		 		
+		 </div> 
 
-			<div ng-show="customerGraphColumnTwoShow" class="form-group form-inline">
 
-				<label>Next Column</label>
-				<select class="form-control"
-				ng-model="columnHeaderSelect.value" 
-			 	ng-options="v for v in columnHeaderList"
-				ng-focus="getColumnHeaders(tableSelectionList.value)"
-				ng-change="columnBuilder(columnHeaderSelect.value, 2);
-					queryDatabase(queryBuilder)
-				"
-
-				>
-					
-				</select>
-			</div>
 <br>
 
 </div>
 
+<h2>BrandList: {{brandList.value.brandidnum}}</h2>
+<br>
+<h2>LocationList: {{locationList.value.locationidnum}}</h2>
 
 
-</div>
+
 
 <div class="panel-footer" ng-show="mainFooterShow">
 	Query Builder: {{queryBuilder}}
 </div>
 <!-- 	{{graphData}} -->
-
+</div> <!-- panel close -->
 </div>

@@ -6,10 +6,14 @@ html body{
 	width: 100%;
 	height: 70%;
 	position: relative;
+	margin-top: 100px;
 }
 #topSpacer{
 	width: 100%;
 	height: 100px;
+}
+.chart-controls{
+	margin-top: 60px;
 }
 .panel .panel-main{
 	width: 50%;
