@@ -1,6 +1,6 @@
 <?php
 
-$brandQuery = "SELECT itemidnum, brandidnum, itemname FROM tradexc_items 
+$brandQuery = "SELECT itemidnum, brandidnum, itemcode, itemname FROM tradexc_items 
 WHERE itemstatus = 'Active'; ";
 
 include("DBConnect.php");

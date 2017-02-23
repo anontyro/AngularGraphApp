@@ -38,7 +38,7 @@ graphApp.service('graphDataService',  function(){
 graphApp.controller('indexController', ['$scope', '$http','$location', '$timeout' , 'graphDataService', function($scope, $http, $location , $timeout, graphDataService){
 	
 	//vars
-	$scope.mainFooterShow = true; //hides the query builder footer when not needed
+	$scope.mainFooterShow = false; //hides the query builder footer when not needed
 
 	$scope.whichTable = "";
 
@@ -52,12 +52,19 @@ graphApp.controller('indexController', ['$scope', '$http','$location', '$timeout
 
 	//show values for verious elements on the page
 	$scope.firstSelectorShow = true;
+	$scope.brandShow = false;
+	$scope.itemShow = false;
+	$scope.locationShow = false;
+	$scope.timeframeShow = false;
+
+
+
 	
 	//predefined list of queries to run, these call statements in the getgraph.php, these values are sent in the table variable via GET
 	$scope.predefinedTableSelection = [
 	{'tableTitle': '', 'tableCode': ''},
-	{'tableTitle': 'All Forecast', 'tableCode':'forecast','brandShow':'false', 'locationShow':'true', 'timeframeShow':'false'},
-	{'tableTitle': 'All Sales Against Forecast', 'tableCode': 'salesVsForecast'},
+	{'tableTitle': 'All Forecast', 'tableCode':'forecast'},
+	// {'tableTitle': 'All Sales Against Forecast', 'tableCode': 'salesVsForecast'},
 	{'tableTitle': 'Yearly Sales Forecast', 'tableCode': 'yearsalesforecast'},
 	{'tableTitle': 'Sales Chart By Item', 'tableCode': 'salebyitem'},
 	];
@@ -72,6 +79,16 @@ graphApp.controller('indexController', ['$scope', '$http','$location', '$timeout
 
 	//function that sets the table value that has been selected in the select box
 	$scope.selectTable = function($table){
+		if($table === "forecast"){
+			$scope.queryBuilder = $scope.queryBuilder + "table="+ $table +
+			"&location=0";
+			$scope.queryDatabase($scope.queryBuilder);
+		}else if($table === "yearsalesforecast"){
+			$scope.timeframeShow = true;
+		}else if($table === "salebyitem"){
+			$scope.itemShow = true;
+
+		}
 		$scope.queryBuilder = $scope.queryBuilder + "table="+ $table;
 		$scope.whichTable = $table;
 
@@ -104,8 +121,8 @@ graphApp.controller('indexController', ['$scope', '$http','$location', '$timeout
 		$scope.itemList.unshift({"itemidnum":"0", "brandidnum":"0","itemname":"All"});
 	});
 
-	$scope.selectItem = function($item){
-		$scope.queryBuilder = $scope.queryBuilder + "&item=" + $item;
+	$scope.selectItem = function($item, $itemName){
+		$scope.queryBuilder = $scope.queryBuilder + "&item=" + $item + "&itemname="+$itemName;
 	}
 
 	//Location info -------------------------------------------------------------
@@ -176,14 +193,14 @@ graphApp.controller('indexController', ['$scope', '$http','$location', '$timeout
 			graphDataService.getTitle = 'Sales Forcast';
 			graphDataService.getXAxis = 'Location';
 			graphDataService.getYAxis = 'Total Estimated Sales';
-		}else if($scope.whichTable === 'salesVsForecast'){
-			graphDataService.getTitle = 'Sales Against Forecast';
-			graphDataService.getXAxis ='Month';
-			graphDataService.getYAxis = 'Total';
 		}else if($scope.whichTable === 'yearsalesforecast'){
-			graphDataService.getTitle = 'Sales Against Forecast';
+			graphDataService.getTitle = 'Yearly Sales Forecast';
 			graphDataService.getXAxis ='Location';
-			graphDataService.getYAxis = 'Total';
+			graphDataService.getYAxis = 'Total Sales';
+		}else if($scope.whichTable === 'salebyitem'){
+			graphDataService.getTitle = 'Sale Chart By Item';
+			graphDataService.getXAxis ='Location';
+			graphDataService.getYAxis = 'Total Sales';
 		}
 
 		$location.path('/graph');

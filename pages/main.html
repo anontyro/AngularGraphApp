@@ -22,7 +22,10 @@
 			
 		 -->
 		 <!-- Select of brands pulled via PHP -->
-		 <div id="brand-selector" class="form-group form-inline">
+		 <div id="brand-selector" 
+		 class="form-group form-inline"
+		 ng-show="brandShow"
+		 >
 		 	<label>Brands</label>
 		 	<select
 		 	class = "form-control"
@@ -35,20 +38,28 @@
 		 </div> <!-- End of brand -->
 
 		  <!-- Select of Items pulled via PHP -->
-		 <div id="item-selector" class="form-group form-inline">
+		 <div id="item-selector" 
+		 class="form-group form-inline"
+		 ng-show="itemShow"
+
+		 >
 		 	<label>Item</label>
 		 	<select
 		 	class = "form-control"
 		 	ng-model="itemList.value" 
 			ng-options="v.itemname for v in itemList" 
-			ng-change="selectItem(itemList.value.itemidnum);"
+			ng-change="selectItem(itemList.value.itemidnum, itemList.value.itemcode);
+			queryDatabase(queryBuilder);"
 		 	> 		
 		 	</select>
 		
 		 </div> <!-- End of brand -->
 
 		 <!-- Select for location via PHP -->
-		 <div id="location-selector" class="form-group form-inline">
+		 <div id="location-selector" 
+		 class="form-group form-inline"
+		 ng-show="locationShow"
+		 >
 		 	<label>Location</label>
 		 	<select
 		 	class="form-control"
@@ -63,7 +74,10 @@
 		 	</select>
 		 </div> <!-- End of Location -->
 
-		 <div id="timeframe" class="form-group form-inline">
+		 <div id="timeframe-selector" 
+		 class="form-group form-inline"
+		 ng-show="timeframeShow"
+		 >
 		 	<label>From January - </label>
 		 	<select
 		 	class="form-control"
@@ -81,11 +95,6 @@
 <br>
 
 </div>
-
-<h2>BrandList: {{brandList.value.brandidnum}}</h2>
-<br>
-<h2>LocationList: {{locationList.value.locationidnum}}</h2>
-
 
 
 

@@ -3,9 +3,6 @@
 if(!isset($_GET['table'])){
 	die("Error no table value given");
 }
-if(!isset($_GET['location'])){ //check location is set or kill page
-	die("Error no location value given");
-}
 //---------------------------------------FORECAST--------------------------------------------------
 //Run basic query for forecast graph that checks for location 0 == ALL
 if($_GET['table'] === 'forecast'){
@@ -59,7 +56,7 @@ if($_GET['table'] === 'forecast'){
 	ORDER BY locationcode, transcurrency
 	';
 
-	if($_GET['location'] === '0'){
+
 		if($_GET['months']==='0'){
 			completeGraph($graphQuery,13);
 		// print($graphQuery);
@@ -69,16 +66,42 @@ if($_GET['table'] === 'forecast'){
 		// print($graphQuery);
 		
 		}
-	}else{
-		print($_GET['location']);
-	}
+
 
 //------------------------------------------SALES CHART BY ITEM---------------------------------
 //
-
+ 
 }else if($_GET['table'] === 'salebyitem'){
+	if($_GET['item'] ==='0'){
+		$graphQuery = "SELECT itemcode, sumtotal FROM(
+			SELECT itemcode, Sum(creditamount) As sumtotal, Sum(transquantity) As sumquantity, transmeasure, transcurrency 
+			FROM (tradexc_trans INNER JOIN tradexc_items ON tradexc_trans.itemidnum =tradexc_items.itemidnum) 
+			WHERE `transcurrency` IS NOT NULL 
+			GROUP BY itemnum, itemcode, transcurrency, transmeasure 
+			)x
+			WHERE x.sumtotal IS NOT NULL
+			ORDER BY `sumtotal` DESC";
 
-	$graphQuery = "";
+			// print($graphQuery);
+		runGraph($graphQuery);
+	}else{
+		$graphQuery = " 
+		Select locationcode,sumtotal AS '".$_GET['itemname']."'
+			FROM(
+				SELECT itemnum, itemcode, locationcode, locationname, Sum(creditamount) As sumtotal, Sum(transquantity) As sumquantity, transmeasure, transcurrency 
+				FROM ((tradexc_trans INNER JOIN tradexc_items ON tradexc_trans.itemidnum = tradexc_items.itemidnum) 
+							INNER JOIN tradexc_locations ON tradexc_trans.locationidnum = tradexc_locations.locationidnum) 
+				WHERE tradexc_trans.itemidnum=".$_GET['item']." AND transcurrency IS NOT NULL
+				GROUP BY itemnum, itemcode, locationcode, transcurrency, transmeasure 
+				ORDER BY sumtotal DESC
+			    )x
+    	WHERE x.sumtotal IS NOT NULL ";
+    	runGraph($graphQuery);
+    	// print($_GET['itemname']); 
+	}
+
+
+
 
 //------------------------------------------BACKUP BASIC GRAPH DRAW---------------------------------
 //A backup call just in case, this will print a basic graph just using two columns
@@ -86,6 +109,8 @@ if($_GET['table'] === 'forecast'){
 	$graphQuery = "select ".$_GET['column1'].", ".$_GET['column2']." from ".$_GET['table'].";";
 	runGraph($graphQuery);
 }
+
+//-------------------------------GRAPHING JSON FUNCTIONS ----------------------------
 
 function runGraph($graphQuery){
 	include("DBConnect.php");
