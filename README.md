@@ -7,6 +7,6 @@ for my internship, the final product was stripped down a bit to remove unecessar
 The backend is written in PHP which allows the getting of data from the database, the biggest challenge was creating the
 correct JSON array format so that Google Chart would read it correctly.
 
-When I have time I will look to add aditional features including the ability to make a graph from a new dataset presented 
-by the user. Along with an option to input the JSON data and draw a graph from it. I would also like to add the ability to save 
-new datasets into the database, potentially.
+### Retrospective
+
+I created this webapp quite a while back and it was my first proper webapp and my first time playing with AngularJS I did enjoy it a lot and took a longtime to move myself over to Angular (2/4/5) but I have reimplemented this as an Angular 2 application for my work and it was a much nicer process and one that allowed me to use more components and split it up better. This was an early model and one I have learnt quite a lot from, but I am also glad to have moved onto Angular 2 now.
